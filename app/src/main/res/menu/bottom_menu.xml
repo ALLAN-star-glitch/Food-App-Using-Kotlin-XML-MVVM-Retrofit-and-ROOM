@@ -9,8 +9,7 @@
     <item
         android:id="@+id/favoritesFragment"
         android:title="@string/favorite"
-        android:icon="@drawable/icon_favorite"
-        />
+        android:icon="@drawable/icon_favorite"/>
     <item
         android:id="@+id/categoriesFragment"
         android:title="@string/category"

@@ -38,6 +38,7 @@ android {
 dependencies {
 
     val nav_version = "2.7.7"
+    val gif_version = "1.2.29"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -51,4 +52,10 @@ dependencies {
     //navigation component
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    //gif dependency
+    implementation("pl.droidsonroids.gif:android-gif-drawable:$gif_version")
+
+    //intuit dependency
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
 }

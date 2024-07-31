@@ -5,19 +5,28 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/categoriesFragment">
 
-    <fragment
-        android:id="@+id/categoriesFragment"
-        android:name="com.example.yummy.ui.fragments.CategoriesFragment"
-        android:label="fragment_categories"
-        tools:layout="@layout/fragment_categories" />
+    <!--Home Fragment-->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.yummy.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
+
+    <!--Favorites Fragment-->
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.yummy.ui.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+
+
+    <!--Categories Fragment-->
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.yummy.ui.fragments.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories" />
+
+
 </navigation>
