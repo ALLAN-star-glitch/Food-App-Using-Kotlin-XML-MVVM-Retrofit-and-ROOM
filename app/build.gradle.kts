@@ -33,12 +33,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
 
     val nav_version = "2.7.7"
     val gif_version = "1.2.29"
+    val lifecycle_version = "2.8.4"
+    val arch_version = "2.2.0"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -58,4 +64,21 @@ dependencies {
 
     //intuit dependency
     implementation ("com.intuit.sdp:sdp-android:1.1.1")
+
+    //retrofit and gson converter dependencies
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //glide dependency
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //view model dependencies
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // optional - Test helpers for LiveData
+    testImplementation("androidx.arch.core:core-testing:$arch_version")
+
+
 }
