@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface MealApi {
 
-    @GET
+    @GET("random.php")
     fun getRandomMeal(): Call<MealList>
 }

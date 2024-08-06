@@ -40,7 +40,7 @@
 
                 <ImageView
                     android:id="@+id/img_search"
-                    android:layout_width="@dimen/_30sdp"
+                    android:layout_width="@dimen/_40sdp"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/search_icon"
                     android:scaleType="centerCrop"
@@ -74,9 +74,12 @@
                 app:cardCornerRadius="@dimen/_10sdp">
 
                 <ImageView
+                    android:id = "@+id/img_random"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/primary" />
+                    android:scaleType="centerCrop"
+                    android:background="@color/primary"
+                    android:contentDescription="@string/random_image" />
             </androidx.cardview.widget.CardView>
 
             <TextView
