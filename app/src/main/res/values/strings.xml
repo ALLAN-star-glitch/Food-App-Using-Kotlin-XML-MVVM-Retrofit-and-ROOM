@@ -9,4 +9,7 @@
     <string name="categories">categories</string>
     <string name="random_image">Random Image</string>
     <string name="fabicon">fabicon</string>
+    <string name="categor">Category: Beef</string>
+    <string name="area">Area: Palestine</string>
+    <string name="instructions">Instructions</string>
 </resources>
