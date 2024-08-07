@@ -8,4 +8,5 @@
     <string name="popular_food">Popular Food</string>
     <string name="categories">categories</string>
     <string name="random_image">Random Image</string>
+    <string name="fabicon">fabicon</string>
 </resources>

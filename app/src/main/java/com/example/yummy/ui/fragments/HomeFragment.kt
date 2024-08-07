@@ -1,5 +1,6 @@
 package com.example.yummy.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.yummy.databinding.FragmentHomeBinding
 import com.example.yummy.mvvm.HomeViewModel
+import com.example.yummy.ui.activities.MealActivity
 
 class HomeFragment : Fragment() {
 
@@ -29,6 +31,18 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeMvvm.getRandomMeal()
         observerRandomMeal()
+
+        //function call for clicking the random meal image
+        onRandomMealClick()
+    }
+
+    private fun onRandomMealClick() {
+        binding.randomCardImage.setOnClickListener{
+
+            val intent = Intent(activity,MealActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
     private fun observerRandomMeal() {

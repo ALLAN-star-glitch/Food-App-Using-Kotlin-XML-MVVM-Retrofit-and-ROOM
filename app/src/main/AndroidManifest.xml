@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yummy"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".ui.activities.MealActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">
