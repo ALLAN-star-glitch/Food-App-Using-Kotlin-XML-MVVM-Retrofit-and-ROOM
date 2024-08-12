@@ -6,26 +6,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.yummy.adapters.PopularMealsAdapter
 import com.example.yummy.databinding.FragmentHomeBinding
 import com.example.yummy.mvvm.HomeViewModel
 import com.example.yummy.ui.activities.MealActivity
+import com.example.yummy.ui.data.pojo.CategoryMeal
 import com.example.yummy.ui.data.pojo.Meal
 
 class HomeFragment : Fragment() {
 
     private lateinit var randomMeal: Meal
     private lateinit var binding: FragmentHomeBinding
-    private val homeMvvm: HomeViewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+    private lateinit var homeMvvm: HomeViewModel
+    private lateinit var popularItemsAdapter: PopularMealsAdapter
 
     companion object{
         const val MEAL_ID = "Meal ID"
         const val MEAL_NAME = "Meal Name"
         const val MEAL_THUMB = "Meal Thumb"
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java] //initializing homeMvvm
+        popularItemsAdapter = PopularMealsAdapter() //initializing popularItemsAdapter
     }
 
     override fun onCreateView(
@@ -38,11 +47,48 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        preparePopularItemsRecyclerView()
         homeMvvm.getRandomMeal()
         observerRandomMeal()
 
         //function call for clicking the random meal image
         onRandomMealClick()
+
+
+        //function call to the getPopularItems in the home viewmodel
+        homeMvvm.getPopularItems()
+
+        //function call to observe the popular meals live data in the home view model
+        observePopularItemsLiveData()
+
+        //a function call to invoke an event when a a popular food image is clicked
+        onPopularFoodClick()
+    }
+
+    private fun onPopularFoodClick() {
+        popularItemsAdapter.onItemClick = { mealInfo ->
+            val intent = Intent(activity,MealActivity::class.java)
+            intent.putExtra(MEAL_ID,mealInfo.idMeal)
+            intent.putExtra(MEAL_NAME,mealInfo.strMeal)
+            intent.putExtra(MEAL_THUMB,mealInfo.strMealThumb)
+            startActivity(intent)
+        }
+    }
+
+    private fun preparePopularItemsRecyclerView() {
+        binding.recViewPopular.apply {
+            layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false)
+            adapter = popularItemsAdapter
+        }
+    }
+
+    private fun observePopularItemsLiveData() {
+        homeMvvm.observePopularMealsLiveData().observe(viewLifecycleOwner) { popularMeals ->
+            popularItemsAdapter.setMeals(mealList = popularMeals as ArrayList<CategoryMeal>)
+
+        }
+
     }
 
     private fun onRandomMealClick() {

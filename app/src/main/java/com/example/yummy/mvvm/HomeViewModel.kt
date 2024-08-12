@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.yummy.ui.data.pojo.CategoryMeal
+import com.example.yummy.ui.data.pojo.CategoryMealsList
 import com.example.yummy.ui.data.pojo.Meal
 import com.example.yummy.ui.data.pojo.MealList
 import com.example.yummy.ui.data.retrofit.RetrofitInstance
@@ -14,6 +16,7 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
 
     private val randomMealLiveData = MutableLiveData<Meal>()
+    private val popularItemsLiveData = MutableLiveData<List<CategoryMeal>>()
 
     fun getRandomMeal() {
         RetrofitInstance.retrofit.getRandomMeal().enqueue(object : Callback<MealList> {
@@ -34,7 +37,30 @@ class HomeViewModel : ViewModel() {
         })
     }
 
+    fun getPopularItems(){
+        RetrofitInstance.retrofit.getPopularMeals("Seafood").enqueue(object : Callback<CategoryMealsList>{
+            override fun onResponse(call: Call<CategoryMealsList>, response: Response<CategoryMealsList>) {
+                response.body()?.let {popularMeals ->
+                    if (response.body()!=null){
+                        popularItemsLiveData.value = popularMeals.meals
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<CategoryMealsList>, t: Throwable) {
+                Log.d("HomeFragment",t.message.toString())
+            }
+        })
+    }
+
+    //a function to return random meal live data for observation
     fun observeRandomMealLiveData(): LiveData<Meal> {
         return randomMealLiveData
+    }
+
+    //A function to return popular meals live data for observation
+    fun observePopularMealsLiveData(): LiveData<List<CategoryMeal>>{
+        return popularItemsLiveData
     }
 }
