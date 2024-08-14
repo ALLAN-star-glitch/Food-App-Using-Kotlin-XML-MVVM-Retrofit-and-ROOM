@@ -131,7 +131,8 @@
                     android:id="@+id/rec_categories"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    android:padding="@dimen/_5sdp"/>
 
             </androidx.cardview.widget.CardView>
 

@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Yummy"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activities.CategoryMealsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.MealActivity"
             android:exported="false" />
         <activity

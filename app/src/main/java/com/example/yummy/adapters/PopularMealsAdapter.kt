@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.yummy.databinding.PopularMealsBinding
-import com.example.yummy.ui.data.pojo.CategoryMeal
+import com.example.yummy.ui.data.pojo.FilteredMealBySpecificCategory
 
 
 class PopularMealsAdapter(): RecyclerView.Adapter<PopularMealsAdapter.PopularMealViewHolder>() {
-    lateinit var onItemClick: ((CategoryMeal)->Unit)
-    private var mealsList = ArrayList<CategoryMeal>()
+    lateinit var onItemClick: ((FilteredMealBySpecificCategory)->Unit)
+    private var mealsList = ArrayList<FilteredMealBySpecificCategory>()
 
     //a function to set the meals list in a category
-    fun setMeals(mealList: ArrayList<CategoryMeal>){
+    fun setMeals(mealList: ArrayList<FilteredMealBySpecificCategory>){
         this.mealsList = mealList
         notifyDataSetChanged() //to reset the adapter to update the view on every change
     }
