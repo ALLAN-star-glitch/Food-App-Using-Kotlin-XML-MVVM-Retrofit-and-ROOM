@@ -17,7 +17,7 @@ import com.example.yummy.mvvm.HomeViewModel
 import com.example.yummy.ui.activities.CategoryMealsActivity
 import com.example.yummy.ui.activities.MealActivity
 import com.example.yummy.ui.data.pojo.Category
-import com.example.yummy.ui.data.pojo.FilteredMealBySpecificCategory
+import com.example.yummy.ui.data.pojo.FilteredByCategoryMeal
 import com.example.yummy.ui.data.pojo.Meal
 
 class HomeFragment : Fragment() {
@@ -126,7 +126,7 @@ class HomeFragment : Fragment() {
 
     private fun observePopularItemsLiveData() {
         homeMvvm.observePopularMealsLiveData().observe(viewLifecycleOwner) { popularMeals ->
-            popularItemsAdapter.setMeals(mealList = popularMeals as ArrayList<FilteredMealBySpecificCategory>)
+            popularItemsAdapter.setMeals(mealList = popularMeals as ArrayList<FilteredByCategoryMeal>)
 
         }
 

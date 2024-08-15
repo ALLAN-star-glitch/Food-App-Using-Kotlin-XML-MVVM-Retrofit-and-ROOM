@@ -1,7 +1,7 @@
 package com.example.yummy.ui.data.retrofit
 
 import com.example.yummy.ui.data.pojo.CategoriesList
-import com.example.yummy.ui.data.pojo.FilteredBySpecificCategoryMealsList
+import com.example.yummy.ui.data.pojo.FilteredByCategoryMealsList
 import com.example.yummy.ui.data.pojo.MealList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -20,9 +20,16 @@ interface MealApi {
     fun getPopularMeals(
         @Query("c")
         categoryName: String
-    ): Call<FilteredBySpecificCategoryMealsList>
+    ): Call<FilteredByCategoryMealsList>
 
     //function to get all categories
     @GET("categories.php")
     fun getAllCategories(): Call<CategoriesList>
+
+    //A function to filter meals by category
+    @GET("filter.php")
+    fun getMealByCategory(
+        @Query("c")
+        categoryName: String
+    ): Call<FilteredByCategoryMealsList>
 }
