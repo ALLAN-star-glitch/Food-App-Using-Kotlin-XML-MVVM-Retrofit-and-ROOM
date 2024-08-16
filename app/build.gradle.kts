@@ -47,6 +47,7 @@ dependencies {
     val gif_version = "1.2.29"
     val lifecycle_version = "2.8.4"
     val arch_version = "2.2.0"
+    val room_version = "2.6.1"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -58,29 +59,43 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //navigation component
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     //gif dependency
-    implementation("pl.droidsonroids.gif:android-gif-drawable:$gif_version")
+    implementation(libs.android.gif.drawable)
 
     //intuit dependency
-    implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    implementation (libs.sdp.android)
 
     //retrofit and gson converter dependencies
-    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 
     //glide dependency
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
 
     //view model dependencies
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     // optional - Test helpers for LiveData
-    testImplementation("androidx.arch.core:core-testing:$arch_version")
+    testImplementation(libs.androidx.core.testing)
+
+
+    //Room dependency
+
+    implementation (libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt ("androidx.room:room-compiler:$room_version")
+
+    //coroutine support for room
+    implementation(libs.androidx.room.ktx)
+
+
 
 
 }
