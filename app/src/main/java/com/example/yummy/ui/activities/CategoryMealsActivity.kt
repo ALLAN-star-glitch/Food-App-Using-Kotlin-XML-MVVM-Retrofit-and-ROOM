@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.yummy.adapters.CategoryMealsAdapter
 import com.example.yummy.databinding.ActivityCategoryMealsBinding
-import com.example.yummy.mvvm.CategoryMealsViewModel
+import com.example.yummy.mvvm.viewmodels.CategoryMealsViewModel
 import com.example.yummy.ui.fragments.HomeFragment
 
 class CategoryMealsActivity : AppCompatActivity() {

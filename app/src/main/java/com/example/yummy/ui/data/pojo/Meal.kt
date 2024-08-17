@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "mealInformation")
 data class Meal(
     val dateModified: Any?,
+    @PrimaryKey
     val idMeal: String,
     val strArea: String?,
     val strCategory: String?,

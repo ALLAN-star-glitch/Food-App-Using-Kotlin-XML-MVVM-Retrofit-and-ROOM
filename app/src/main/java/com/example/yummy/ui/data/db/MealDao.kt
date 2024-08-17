@@ -19,6 +19,8 @@ interface MealDao {
     @Delete
     suspend fun delete(meal: Meal)
 
+
+    //this function does not need to be a suspend function because it returns a live data and a live data can be observed
     @Query("SELECT * FROM mealInformation")
     fun getAllMeal(): LiveData<List<Meal>>
 

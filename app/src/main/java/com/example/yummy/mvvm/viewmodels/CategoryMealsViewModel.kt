@@ -1,4 +1,4 @@
-package com.example.yummy.mvvm
+package com.example.yummy.mvvm.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData

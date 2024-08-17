@@ -1,9 +1,19 @@
-package com.example.yummy.mvvm
+/*This view model will handle general logic for the app. For instance, it will handle
+* the logic for the favorite fragment, home fragment as well as the categories fragment.
+* Therefore, this view model will be initialized in the main activity, and then used in the aforementioned
+* fragments.
+* Als, this view model will take in mealDatabase as it's dependency, hence a necessity to create the
+* generalViewModelFactory*/
+
+
+
+package com.example.yummy.mvvm.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.yummy.ui.data.db.MealDatabase
 import com.example.yummy.ui.data.pojo.CategoriesList
 import com.example.yummy.ui.data.pojo.Category
 import com.example.yummy.ui.data.pojo.FilteredByCategoryMeal
@@ -15,11 +25,25 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class GeneralViewModel(val mealDatabase: MealDatabase) : ViewModel() {
 
-    private val randomMealLiveData = MutableLiveData<Meal>()
-    private val popularItemsLiveData = MutableLiveData<List<FilteredByCategoryMeal>>()
-    private val allCategoriesListLiveData = MutableLiveData<List<Category>>()
+
+    private val _randomMealLiveData = MutableLiveData<Meal>()
+    val randromMealLiveData: LiveData<Meal> //for observation of the random meal
+        get() = _randomMealLiveData
+
+    private val _popularMealsLiveData = MutableLiveData<List<FilteredByCategoryMeal>>()
+    val popularMealsLiveData: LiveData<List<FilteredByCategoryMeal>>
+        get() = _popularMealsLiveData
+
+    private val _allCategoriesListLiveData = MutableLiveData<List<Category>>()
+    val allCatagoriesListLiveData: LiveData<List<Category>>
+        get() = _allCategoriesListLiveData
+
+
+    //we define the favoriteMeals variable in the home view model
+    private var favoriteMealsLiveData = mealDatabase.mealDao().getAllMeal()
+
 
     fun getRandomMeal() {
         RetrofitInstance.retrofit.getRandomMeal().enqueue(object : Callback<MealList> {
@@ -27,7 +51,7 @@ class HomeViewModel : ViewModel() {
                 response.body()?.let { mealList ->
                     if (mealList.meals.isNotEmpty()) {
                         val randomMeal: Meal = mealList.meals[0]
-                        randomMealLiveData.value = randomMeal
+                        _randomMealLiveData.value = randomMeal
                     } else {
                         Log.d("HomeViewModel", "Meal list is empty")
                     }
@@ -45,7 +69,7 @@ class HomeViewModel : ViewModel() {
             override fun onResponse(call: Call<FilteredByCategoryMealsList>, response: Response<FilteredByCategoryMealsList>) {
                 response.body()?.let {popularMeals ->
                     if (response.body()!=null){
-                        popularItemsLiveData.value = popularMeals.meals
+                        _popularMealsLiveData.value = popularMeals.meals
                     }
 
                 }
@@ -57,15 +81,6 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    //a function to return random meal live data for observation
-    fun observeRandomMealLiveData(): LiveData<Meal> {
-        return randomMealLiveData
-    }
-
-    //A function to return popular meals live data for observation
-    fun observePopularMealsLiveData(): LiveData<List<FilteredByCategoryMeal>>{
-        return popularItemsLiveData
-    }
 
     //A function to get all categories
     fun getAllMealsCategories(){
@@ -75,7 +90,7 @@ class HomeViewModel : ViewModel() {
                 response: Response<CategoriesList>
             ) {
                 response.body()?.let {mealsCategoryList ->
-                    allCategoriesListLiveData.postValue(mealsCategoryList.categories)
+                    _allCategoriesListLiveData.postValue(mealsCategoryList.categories)
 
                 }
             }
@@ -86,8 +101,9 @@ class HomeViewModel : ViewModel() {
         })
     }
 
-    //A function that will help us to observe the all categories live data ... it will return a live data.
-    fun observeAllCategoriesLiveData(): LiveData<List<Category>>{
-        return allCategoriesListLiveData
+
+    //A function that will return favoriteMealsLiveData for observation purpose
+    fun observeFavoriteMealLiveData(): LiveData<List<Meal>>{
+        return favoriteMealsLiveData
     }
 }
