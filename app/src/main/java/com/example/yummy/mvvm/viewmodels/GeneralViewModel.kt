@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.yummy.ui.data.db.MealDatabase
 import com.example.yummy.ui.data.pojo.CategoriesList
 import com.example.yummy.ui.data.pojo.Category
@@ -21,6 +22,7 @@ import com.example.yummy.ui.data.pojo.FilteredByCategoryMealsList
 import com.example.yummy.ui.data.pojo.Meal
 import com.example.yummy.ui.data.pojo.MealList
 import com.example.yummy.ui.data.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -106,4 +108,19 @@ class GeneralViewModel(val mealDatabase: MealDatabase) : ViewModel() {
     fun observeFavoriteMealLiveData(): LiveData<List<Meal>>{
         return favoriteMealsLiveData
     }
+
+    //function to delete a meal
+    fun deleteMeal(meal: Meal){
+        viewModelScope.launch {
+            mealDatabase.mealDao().delete(meal)
+        }
+    }
+
+    //function to update and insert into the database
+    fun upsertToDb(meal: Meal){
+        viewModelScope.launch {
+            mealDatabase.mealDao().upsert(meal)
+        }
+    }
+
 }

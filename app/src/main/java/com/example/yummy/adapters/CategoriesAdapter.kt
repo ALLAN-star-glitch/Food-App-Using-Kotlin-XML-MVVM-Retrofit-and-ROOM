@@ -14,8 +14,8 @@ class CategoriesAdapter: RecyclerView.Adapter<CategoriesAdapter.CategoryViewHold
     lateinit var onItemClick: ((Category)->Unit)
 
     //A function to update category list
-    fun setCategoryList(categoryList: ArrayList<Category>){
-        this.categoryList = categoryList
+    fun setCategoryList(categoryList: List<Category>){
+        this.categoryList = categoryList as ArrayList<Category>
         notifyDataSetChanged()
     }
 

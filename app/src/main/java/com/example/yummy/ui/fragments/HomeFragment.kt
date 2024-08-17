@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
     private fun observeAllCategoriesLiveData() {
         viewModel.allCatagoriesListLiveData.observe(viewLifecycleOwner){ mealCategories ->
-            categoryAdapter.setCategoryList(mealCategories as ArrayList<Category>)
+            categoryAdapter.setCategoryList(mealCategories)
 
         }
     }
